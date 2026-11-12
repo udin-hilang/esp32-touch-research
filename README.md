@@ -54,7 +54,32 @@ streamlit run app.py
 Pilih port serial, tekan Connect, isi metadata, pasang material, Capture baseline, sentuh material, lalu Start touch recording. Tekan Stop & save untuk menyimpan.
 Jumlah sampel touch recording dapat ditentukan di bagian Experiment setup. Recording akan berhenti dan tersimpan otomatis setelah batas sampel itu tercapai; tombol Stop & save tetap dapat digunakan untuk mengakhiri lebih awal.
 
-## 4. Definisi pengukuran
+## 4. Kelola dan sajikan data tersimpan
+
+Aplikasi dashboard terpisah dapat dijalankan tanpa menghubungkan ESP32:
+
+```bash
+streamlit run manage_app.py
+```
+
+Dashboard membaca folder di `data/experiments`, menyediakan filter dan grafik, memungkinkan metadata diedit, serta dapat mengunduh satu eksperimen atau semua eksperimen terfilter dalam JSON. Penghapusan folder eksperimen tersedia di tab Manajemen dan memerlukan konfirmasi.
+
+Untuk menyajikan data lewat HTTP JSON API, jalankan di terminal lain:
+
+```bash
+python serve_json.py
+```
+
+Secara default API hanya bind ke komputer lokal pada port 8765:
+
+- `GET /api/health` — status server.
+- `GET /api/experiments` — daftar eksperimen, metadata, dan jumlah sampel.
+- `GET /api/experiments/<nama-folder>` — metadata dan seluruh sampel dalam satu dokumen JSON.
+- `GET /api/experiments/<nama-folder>/metadata` — metadata saja.
+
+Untuk akses dari jaringan lokal, jalankan `python serve_json.py --host 0.0.0.0`. Anda juga dapat mengganti port (`--port`) atau direktori data (`--data-dir`).
+
+## 5. Definisi pengukuran
 
 Baseline dihitung sebagai rata-rata pembacaan saat material sudah berada di atas elektroda dan belum disentuh.
 
@@ -62,7 +87,7 @@ Baseline dihitung sebagai rata-rata pembacaan saat material sudah berada di atas
 
 Persentase perubahan disimpan sebagai nilai absolut relatif terhadap baseline. Kolom delta bertanda tetap disimpan agar arah perubahan tidak hilang.
 
-## 5. Catatan eksperimen
+## 6. Catatan eksperimen
 
 - Jaga posisi, luas, tekanan penempatan material, dan posisi sentuhan tetap konsisten.
 - Lakukan beberapa trial untuk setiap kombinasi material-ketebalan.
