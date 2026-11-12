@@ -62,7 +62,9 @@ Aplikasi dashboard terpisah dapat dijalankan tanpa menghubungkan ESP32:
 streamlit run manage_app.py
 ```
 
-Dashboard membaca folder di `data/experiments`, menyediakan filter dan grafik, memungkinkan metadata diedit, serta dapat mengunduh satu eksperimen atau semua eksperimen terfilter dalam JSON. Penghapusan folder eksperimen tersedia di tab Manajemen dan memerlukan konfirmasi.
+Dashboard membaca folder di `data/experiments` dan menyediakan filter serta ringkasan eksperimen. Plot rekaman menampilkan `raw_value` dan `baseline`, sedangkan diagram batang membandingkan rata-rata `delta_percent` per eksperimen. Untuk eksperimen yang dipilih, dashboard juga menampilkan rata-rata sampel `raw_value`, `baseline`, `delta`, dan `delta_percent`.
+
+Metadata eksperimen dapat diedit di tab Manajemen. Data satu eksperimen atau semua eksperimen terfilter dapat diunduh sebagai JSON. Penghapusan folder eksperimen tersedia di tab Manajemen dan memerlukan konfirmasi.
 
 Untuk menyajikan data lewat HTTP JSON API, jalankan di terminal lain:
 
